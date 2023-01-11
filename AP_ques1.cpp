@@ -4,6 +4,10 @@ typedef long long int ll;
 pair<ll,ll> extended_euclidien(int a,int b) {
     if(b==0) {
         return {1,0};
+
+
+
+        
     }
     
 }
