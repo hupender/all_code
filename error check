@@ -1,0 +1,4 @@
+1. always check if u r using memory that's not been initialised
+2. check if using == instead of = operator
+3. interger overflow
+4. prefer array over vector and vector over unordered_map
