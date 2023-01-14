@@ -2,38 +2,39 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
-void solve1() {
-    int n,m,k;
-    cin>>n>>m>>k;
-    vector<pair<int,int>> v;
-    for(int i=0;i<k;i++) {
-        int a,b;
-        cin>>a>>b;
-        v.push_back({a,b});
-    }
-    // sort(v.begin(),v.end());
-    vector<pair<int,int>> v1;
-    vector<pair<int,int>> v2;
-    for(int i=0;i<k;i++) {
-        if(v[i].first<n && v[i].second<m) {
-            v1.push_back({v[i].first,v[i].second});
-            v2.push_back({v[i].second,v[i].first});
-        }
-    }
-    sort(v1.begin(),v1.end());
-    sort(v2.begin(),v2.end());
-    vector<pair<int,int>> v3;
-    for(int i=0;i<k;i++) {
-        v3.push_back({v2[i].second,v2[i].first});
-    }
-    ll res=(ll)(n-1)*(m-1);
-    if(v1.size()==0 || k==0) {
-        cout<<res<<endl;
-    }
-    else {
-        // find longest common subsequence in v1 and v3
-    }
-}
+
+// void solve1() {
+//     int n,m,k;
+//     cin>>n>>m>>k;
+//     vector<pair<int,int>> v;
+//     for(int i=0;i<k;i++) {
+//         int a,b;
+//         cin>>a>>b;
+//         v.push_back({a,b});
+//     }
+//     // sort(v.begin(),v.end());
+//     vector<pair<int,int>> v1;
+//     vector<pair<int,int>> v2;
+//     for(int i=0;i<k;i++) {
+//         if(v[i].first<n && v[i].second<m) {
+//             v1.push_back({v[i].first,v[i].second});
+//             v2.push_back({v[i].second,v[i].first});
+//         }
+//     }
+//     sort(v1.begin(),v1.end());
+//     sort(v2.begin(),v2.end());
+//     vector<pair<int,int>> v3;
+//     for(int i=0;i<k;i++) {
+//         v3.push_back({v2[i].second,v2[i].first});
+//     }
+//     ll res=(ll)(n-1)*(m-1);
+//     if(v1.size()==0 || k==0) {
+//         cout<<res<<endl;
+//     }
+//     else {
+//         // find longest common subsequence in v1 and v3
+//     }
+// }
 void solve() {
     int n,m,k;
     cin>>n>>m>>k;
@@ -55,7 +56,7 @@ void solve() {
     sort(v1.begin(),v1.end());
     sort(v2.begin(),v2.end());
     vector<pair<int,int>> v3;
-    map<pair<int,int>,int> map;
+    map<pair<int,int>,int> map, visited1;
     for(int i=0;i<k;i++) {
         v3.push_back({v2[i].second,v2[i].first});
         map[{v2[i].second,v2[i].first}]=i;
