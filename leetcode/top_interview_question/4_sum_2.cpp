@@ -34,6 +34,35 @@ public:
     //     return -1;
     // }
     int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        int n=nums1.size();
+
+        vector<int> v1;
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                v1.push_back(nums1[i]+nums2[j]);
+            }
+        }
+        vector<int> v2;
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                v2.push_back(nums3[i]+nums4[j]);
+            }
+        }
+        sort(v1.begin(),v1.end());
+        sort(v2.begin(),v2.end());
+        int count=0;
+        int n1=v1.size();
+        unordered_map<int,int> m;
+        for(int i=0;i<n1;i++) {
+            m[v1[i]]++;
+        }
+        for(int i=0;i<n1;i++) {
+            int val=-(v2[i]);
+            if(m[val]>0) {
+                count+=m[val];
+            }
+        }
+        return count;
 
         // int n=nums1.size();
         // int count=0;
@@ -110,27 +139,27 @@ public:
         // }
         // return count;
 
-        int n=nums1.size();
-        vector<int> v;
-        int count=0;
-        // sort(nums3.begin(),nums3.end());
-        // sort(nums4.begin(),nums4.end());
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<n;j++) {
-                for(int k=0;k<n;k++) {
-                    int sum=-(nums1[i]+nums2[j]+nums3[k]);
-                    v.push_back(sum);
-                }
-            }
-        }
-        unordered_map<int,int> m;
-        for(int i=0;i<n;i++) {
-            m[nums4[i]]++;
-        }
-        for(int i=0;i<v.size();i++) {
-            count+=m[v[i]];
-        }
-        return count;
+        // int n=nums1.size();
+        // vector<int> v;
+        // int count=0;
+        // // sort(nums3.begin(),nums3.end());
+        // // sort(nums4.begin(),nums4.end());
+        // for(int i=0;i<n;i++) {
+        //     for(int j=0;j<n;j++) {
+        //         for(int k=0;k<n;k++) {
+        //             int sum=-(nums1[i]+nums2[j]+nums3[k]);
+        //             v.push_back(sum);
+        //         }
+        //     }
+        // }
+        // unordered_map<int,int> m;
+        // for(int i=0;i<n;i++) {
+        //     m[nums4[i]]++;
+        // }
+        // for(int i=0;i<v.size();i++) {
+        //     count+=m[v[i]];
+        // }
+        // return count;
     }
 };
 
