@@ -2,6 +2,48 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int 
+void solve2() {
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+    }
+    sort(a,a+n);
+    int count_zero=0,ind=0;
+    for(int i=0;i<n;i++) {
+        if(a[i]==0) {
+            count_zero++;
+        }
+        else {
+            ind=i;
+            break;
+        }
+    }
+    int people_going=count_zero;   // no of people going
+    int people_needed=0;   // no of people needed to go
+    int res=0;
+    for(int i=ind;i<n;i++) {
+        if(people_needed>people_going) {
+            people_going++;
+            people_needed=a[i]+1;
+        }
+        else if(a[i]>people_going) {
+            res++;
+            people_going++;
+            people_needed=a[i]+1;
+        }
+        else {
+            people_going++;
+            people_needed=a[i]+1;
+        }
+    }
+    if(people_going>=people_needed) {
+        res++;
+    }
+    cout<<res<<endl;
+ 
+}
 void solve1() {
     int n;
     cin>>n;
@@ -134,7 +176,7 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        solve1();
+        solve2();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();

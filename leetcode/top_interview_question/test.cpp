@@ -34,7 +34,7 @@ public:
                 while(low>=0 && ind<n) {
                     if(s[low]==s[ind]) {
                         lower_bound2=low;
-                        higher_bound=ind;
+                        higher_bound2=ind;
                         res2+=2;
                         low--;
                         ind++;

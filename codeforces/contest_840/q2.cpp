@@ -2,6 +2,95 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
+int solve_quadratic(float a,float b,int c)  {
+    float d=b*b-4*a*c;
+    if(d<0) {
+        return -1;
+    }
+    else {
+        int r=sqrt(d);
+        int res1=(-b-r)/(2*a);
+        int res=(r-b)/(2*a);
+        return min(res1,res);
+    }
+    return 0;
+}
+int valid_case=0;
+void solve3(int tt) {
+    int n,k;
+    cin>>n>>k;
+    int health[n];
+    for(int i=0;i<n;i++) {
+        cin>>health[i];
+    }
+    int power[n];
+    for(int i=0;i<n;i++) {
+        cin>>power[i];
+    }
+    pair<int,int> a[n];
+    for(int i=0;i<n;i++) {
+        a[i]={power[i],health[i]};
+    }
+    // if(tt==1 && n==4 && k==7) {
+    //     valid_case=1;
+    // }
+    // if(valid_case && tt==29) {
+    //     cout<<n<<" "<<k<<endl;
+    //     for(int i=0;i<n;i++) {
+    //         cout<<health[i]<<" ";
+    //     }
+    //     cout<<endl;
+    //     for(int i=0;i<n;i++) {
+    //         cout<<power[i]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+    // first kill monster with lowest power
+    sort(a,a+n);
+    int total_attack=0;
+    int flag=0;
+    int flag1=1;
+    for(int i=0;i<n;i++) {
+        if(a[i].second>total_attack) {
+            int remaining_health=a[i].second-total_attack;
+            float power1=a[i].first;
+            if(flag) {
+                k-=power1;
+            }
+            else {
+                flag=1;
+            }
+            float b=-(k+(float)power1/2);
+            int res=solve_quadratic(power1/2,b,remaining_health);
+            if(res<0) {
+                flag1=0;
+                break;
+                
+            }
+            int round_attack=((2*k-(res-1)*power1)*res)/2;
+            if(k>0) {
+                k=k-(res-1)*power1;
+            }
+            
+            if(remaining_health<=round_attack) {
+                total_attack+=round_attack;
+            }
+            else if(remaining_health>round_attack) {
+                k-=power1;
+                round_attack+=k;
+                total_attack+=round_attack;
+            }
+        }
+    }
+    if(flag1) {
+        cout<<"YES"<<endl;
+    }
+    else {
+        cout<<"NO"<<endl;
+    }
+}
+
+
 int solve_quadratic(int a,int b,int c,int k) {
     float d=(b*b-4*a*c);
     if(d<0) {
@@ -13,10 +102,10 @@ int solve_quadratic(int a,int b,int c,int k) {
     float x2=-(b+x);
     x2/=(2*a);
     if(x1>=0 && x2>=0) {
-        return ceil(min(x1,x2));
+        return floor(min(x1,x2));
     }
     else {
-        return ceil(max(x1,x2));
+        return floor(max(x1,x2));
     }
 }
 void solve2() {
@@ -38,6 +127,7 @@ void solve2() {
     ll count=0;
     ll total_attack_power=0;
     int flag=1;
+    int flag1=1;
     for(int i=0;i<n;i++) {
         // number of attacs to kill ith monster
         // intial attack k
@@ -52,6 +142,7 @@ void solve2() {
                 flag=0;
                 break;
             }
+            int attack=(n*(2*k-(n-1)*a1))/2;
             total_attack_power+=(n*(2*k-(n-1)*a1))/2;
             if(n>0) {
                 k=k-(n-1)*a1;
@@ -175,6 +266,8 @@ void solve() {
         cout<<"NO"<<endl;
     }
 }
+
+
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
@@ -185,34 +278,12 @@ int main() {
     cin.tie(0);
     int t;
     cin>>t;
+    // while(t--) {
+    //     solve3();
+    // }
+    
     for(int i=1;i<=t;i++) {
-        if(i==24) {
-            int n,k;
-            cin>>n>>k;
-            int health[n];
-            for(int i=0;i<n;i++) {
-                cin>>health[i];
-            }
-            int power[n];
-            for(int i=0;i<n;i++) {
-                cin>>power[i];
-            }
-            cout<<n<<" "<<k<<endl;
-            for(int i=0;i<n;i++) {
-                cout<<health[i]<<" ";
-            }
-            cout<<endl;
-            for(int i=0;i<n;i++) {
-                cout<<power[i]<<" ";
-            }
-            cout<<endl;
-            
-
-        }
-        else {
-            solve2();
-        }
-        
+        solve3(i);
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();
