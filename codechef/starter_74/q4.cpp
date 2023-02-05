@@ -2,6 +2,33 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
+unordered_map<int,int> map1;
+void get_help(vector<int>& a) {
+    int n=a.size();
+    if(n==1) {
+        return;
+    }
+    else if(n==2) {
+        int diff=abs(a[1]-a[0]);
+        map1[diff]++;
+    }
+    else {
+        
+    }
+}
+void solve1() {
+    int n;
+    cin>>n;
+    vector<int> a;
+    for(int i=0;i<n;i++) {
+        int k;
+        cin>>k;
+        a.push_back(k);
+    }
+    // ll res=get_help(a);
+
+    
+}
 void solve() {
     int n;
     cin>>n;
@@ -48,7 +75,7 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        solve();
+        solve1();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();

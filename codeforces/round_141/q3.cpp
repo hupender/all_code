@@ -2,6 +2,24 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
+
+void solve1() {
+    int n,m;
+    cin>>n>>m;
+    int a[n];
+    map<int,int,greater<int>> map1;
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+        map1[a[i]]++;
+    }
+    vector<pair<int,int>> v;
+    int count=1;
+    for(auto i:map1) {
+        v.push_back({i.first,count});
+        count+=i.second;
+    }
+    
+}
 void solve() {
     int n,m;
     cin>>n>>m;
@@ -83,7 +101,7 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        solve();
+        solve1();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();
