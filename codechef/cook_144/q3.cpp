@@ -2,40 +2,50 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
-void solve() {
-    int n,m,d;
-    cin>>n>>m>>d;
+void solve1() {
+    int n;
+    cin>>n;
     int a[n];
     for(int i=0;i<n;i++) {
         cin>>a[i];
     }
-    int b[m];
-    for(int i=0;i<m;i++) {
-        cin>>b[i];
-    }
-    unordered_map<int,int> map1;
-    for(int i=0;i<n;i++) {
-        map1[a[i]]=i;
-    }
-    int count=INT_MAX;
-    for(int i=0;i<m-1;i++) {
-        int pos1=map1[b[i]];
-        int pos2=map1[b[i+1]];
-        int res=0;
-        if(pos1<pos2 && pos2<=pos1+d) {
-            int res1=pos2-pos1;
-            int res2;
-            if(d>=n-1) {
-                res2=INT_MAX;
-            }
-            else {
-                res2=pos1+d-pos2+1;
-            }
-            res=min(res1,res2);
+    int flag=1;
+    for(int i=1;i<n;i++) {
+        if(a[i]!=a[0]) {
+            flag=0;
         }
-        count=min(count,res);
     }
-    cout<<count<<endl;
+    if(flag && n%2==0) {
+        cout<<"Zenyk"<<endl;
+    }
+    else {
+        cout<<"Marichka"<<endl;
+    }
+
+}
+void solve() {
+    int n;
+    cin>>n;
+    int a[n];
+    map<int,int> m;
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+        m[a[i]]++;
+    }
+    int flag=0;
+    for(auto i:m) {
+        if(i.second%2!=0) {
+            flag=1;
+        }
+    }
+    if(flag) {
+        cout<<"Marichka"<<endl;
+    }
+    else {
+        cout<<"Zenyk"<<endl;
+    }
+
+
 }
 int main() {
     #ifndef ONLINE_JUDGE

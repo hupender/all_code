@@ -3,37 +3,29 @@ using namespace std;
 #define endl "\n"
 #define ll long long int
 void solve() {
-    int n,m,d;
-    cin>>n>>m>>d;
+    int n;
+    cin>>n;
     int a[n];
+    // map<int,int> map1;
     for(int i=0;i<n;i++) {
         cin>>a[i];
+        // map1[a[i]]++;
     }
-    int b[m];
-    for(int i=0;i<m;i++) {
-        cin>>b[i];
-    }
-    unordered_map<int,int> map1;
+    sort(a,a+n);
+    ll count=0;
+    int val=1;
     for(int i=0;i<n;i++) {
-        map1[a[i]]=i;
-    }
-    int count=INT_MAX;
-    for(int i=0;i<m-1;i++) {
-        int pos1=map1[b[i]];
-        int pos2=map1[b[i+1]];
-        int res=0;
-        if(pos1<pos2 && pos2<=pos1+d) {
-            int res1=pos2-pos1;
-            int res2;
-            if(d>=n-1) {
-                res2=INT_MAX;
-            }
-            else {
-                res2=pos1+d-pos2+1;
-            }
-            res=min(res1,res2);
+        if(a[i]>val) {
+            count+=a[i]-val;
+            val++;
         }
-        count=min(count,res);
+        else {
+            while(a[i]==val) {
+                i++;
+            }
+            i--;
+            val++;
+        }
     }
     cout<<count<<endl;
 }

@@ -2,92 +2,76 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
-
-void solve1() {
-    int n,m;
-    cin>>n>>m;
-    int a[n];
-    map<int,int,greater<int>> map1;
-    for(int i=0;i<n;i++) {
-        cin>>a[i];
-        map1[a[i]]++;
-    }
-    vector<pair<int,int>> v;
-    int count=1;
-    for(auto i:map1) {
-        v.push_back({i.first,count});
-        count+=i.second;
-    }
-    
-}
 void solve() {
     int n,m;
     cin>>n>>m;
     int a[n];
-    int sum=0;
-    map<int,int> map;
     for(int i=0;i<n;i++) {
         cin>>a[i];
-        sum+=a[i];
-        map[a[i]]++;
     }
-    if(m>=sum) {
-        cout<<"1"<<endl;
+    sort(a,a+n);
+    int sum=0;
+    int count=0;
+    int ind=n-1;
+    for(int i=0;i<n;i++) {
+        sum+=a[i];
+        if(sum<=m) {
+            count++;
+        }
+        else {
+            sum-=a[i];
+            ind=i;
+            break;
+        }
+    }
+    if(count==0) {
+        cout<<n+1<<endl;
     }
     else {
-        sort(a,a+n);
-        int count=0,ind;
+        map<int,int> map,map1;
         for(int i=0;i<n;i++) {
-            if(m>=a[i]) {
-                m-=a[i];
-                count++;
-            }
-            else {
-                ind=i;
-                break;
-            }
+            map[a[i]]++;
+        }
+        int count1=0;
+        for(auto i:map) {
+            map1[i.first]=count1;
+            count1+=i.second;
         }
         vector<pair<int,int>> v;
-        for(auto i:map) {
-            v.push_back({i.first,i.second});
-        }
-        vector<int> prefix_sum;
-        prefix_sum.push_back(0);
-        int n1=v.size();
-        int sum1=0;
-        for(int i=0;i<n1-1;i++) {
-            sum1+=v[i].second;
-            prefix_sum.push_back(sum1);
-        }
-        vector<int> wins;
-        for(int i=0;i<n1;i++) {
-            int size=v[i].second;
-            for(int j=0;j<size;j++) {
-                wins.push_back(prefix_sum[i]);
-            }
-        }
-        for(int i=ind;i<n;i++) {
-            wins[i]++;
-        }
-
-        // added
-        int k=1;
-        for(int i=ind;i<n;i++) {
-            if(ind-k>=0 && wins[ind-k]<count && a[i]<=m+a[ind-k]) {
-                wins[ind-k]++;
-                m=m+a[ind-k]-a[i];
-                k++;
-                wins[i]-=2;
-            }
-        }
-        // added end
-        int res=1;
         for(int i=0;i<n;i++) {
-            if(wins[i]>count) {
+            int val=map1[a[i]];
+            if(i>=ind) {
+                val++;
+            }
+            v.push_back({a[i],val});
+        }
+        int ind1=ind-1;
+        int last_defeated=a[ind1];
+        while(ind1>=0 && a[ind1]!=last_defeated) {
+            ind--;
+        }
+        if(ind1>=0) {
+            m-=sum;
+            while(ind1>=0 && ind<n) {
+                if(m+a[ind1]>=a[ind]) {
+                    v[ind1].second++;
+                    v[ind].second--;
+                    ind1--;
+                    ind++;
+                    m=m-a[ind]+a[ind1];
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        int res=0;
+        for(int i=0;i<n;i++) {
+            if(v[i].second>count) {
                 res++;
             }
         }
-        cout<<res<<endl;
+        cout<<res+1<<endl;
     }
 }
 int main() {
@@ -101,7 +85,7 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        solve1();
+        solve();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();

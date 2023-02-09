@@ -70,6 +70,44 @@ void solve() {
     }
     cout<<max(sum,sum1)<<endl;
 }
+
+
+void solve1() {
+    int n;
+    cin>>n;
+    ll a[n];
+    ll sum1=0;
+    ll ma=INT_MIN;
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
+        ma=max(ma,a[i]);
+        sum1+=a[i];
+    }
+    if(n==2) {
+        int d=abs(a[1]-a[0]);
+        ll res=2*d;
+        cout<<max(res,sum1)<<endl;
+    }
+    else if(n==3) {
+        if(ma==a[0] || ma==a[2]) {
+            ll res1=(ll)ma*3;
+            cout<<res1<<endl;
+        }
+        else {
+            ll res1=3*(max(a[0],a[2]));
+            ll res2=3*max(a[1]-a[0],a[1]-a[2]);
+            ll res3=2*(a[1]-a[0])+a[2];
+            ll res4=2*(a[1]-a[2])+a[0];
+            cout<<max({res1, res2, res3, res4, sum1})<<endl;
+        }
+        
+            
+    }
+    else {
+        ll res=ma*(ll)n;
+        cout<<res<<endl;
+    }
+}
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
@@ -80,8 +118,9 @@ int main() {
     cin.tie(0);
     int t;
     cin>>t;
+        
     while(t--) {
-        solve();
+        solve1();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();

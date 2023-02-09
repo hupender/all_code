@@ -1,1 +1,5 @@
-Executed In : 0.124 ms
+1
+2
+4
+4
+Executed In : 0.129 ms

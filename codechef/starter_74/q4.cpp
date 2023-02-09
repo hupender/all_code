@@ -5,7 +5,7 @@ using namespace std;
 unordered_map<int,int> map1;
 void get_help(vector<int>& a) {
     int n=a.size();
-    if(n==1) {
+    if(n==0 || n==1) {
         return;
     }
     else if(n==2) {
@@ -13,10 +13,38 @@ void get_help(vector<int>& a) {
         map1[diff]++;
     }
     else {
-        
+        vector<pair<int,int>> v;
+        for(int i=0;i<n;i++) {
+            v.push_back({a[i],i});
+        }
+        sort(v.begin(),v.end());
+        int lower=0,higher=n-1;
+        int large=v[n-1].second;
+        for(int i=n-2;i>=0;i--) {
+            int ind=v[i].second;
+            if(ind>=lower && ind<=higher) {
+                int diff=v[n-1].first-v[i].first;
+                map1[diff]++;
+                if(ind<large) {
+                    lower=ind+1;
+                }
+                else {
+                    higher=ind-1;
+                }
+            }
+        }
+        vector<int> v1,v2;
+        for(int i=0;i<large;i++) {
+            v1.push_back(a[i]);
+        }
+        for(int i=large+1;i<n;i++) {
+            v2.push_back(a[i]);
+        }
+        get_help(v1);
+        get_help(v2);
     }
 }
-void solve1() {
+void solve() {
     int n;
     cin>>n;
     vector<int> a;
@@ -25,45 +53,14 @@ void solve1() {
         cin>>k;
         a.push_back(k);
     }
-    // ll res=get_help(a);
+    get_help(a);
+    ll res=map1.size();
+    map1.clear();
+    cout<<res<<endl;
 
     
 }
-void solve() {
-    int n;
-    cin>>n;
-    int a[n];
-    set<pair<int,int>> s;
-    for(int i=0;i<n;i++) {
-        cin>>a[i];
-        s.insert({a[i],i});
-    }
-    unordered_map<int,int> m;
-    for(int i=0;i<n-1;i++) {
-        m[abs(a[i+1]-a[i])]++;
-    }
-    for(int i=0;i<n-2;i++) {
-        if(a[i]>a[i+1]) {
-            auto it1=s.find({a[i+1],i+1});
-            auto it2=s.find({a[i],i});
-            it1++;
-            while(it1!=it2) {
-                if(it1->first==a[i]) {
-                    m[0]++;
-                    break;
-                }
-                else {
-                    m[abs(it1->first-a[i])]++;
-                }
-                it1++;
-            }
-        }
-        else if(a[i]==a[i+1]) {
-            m[0]++;
-        }
-    }
-    cout<<m.size()<<endl;
-}
+
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
@@ -75,7 +72,7 @@ int main() {
     int t;
     cin>>t;
     while(t--) {
-        solve1();
+        solve();
     }
     #ifndef ONLINE_JUDGE
         clock_t clock_end = clock();
