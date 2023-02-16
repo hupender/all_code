@@ -2,18 +2,28 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
-vector<int> get_factor(int n,int m) {
-    vector<int> v;
-    for(int i=1;i*i<=n;i++) {
-        if(n%i==0 && i<=m) {
-            v.push_back(i);
+unordered_map<int,vector<int>> map2;
+
+void get_all_factor() {
+    int n=1e5;
+    for(int i=1;i<=n;i++) {
+        for(int j=i;j<=n;j+=i) {
+            map2[j].push_back(i);
         }
     }
-    if(v.size()==1 && n<=m) {
-        v.push_back(n);
+}
+
+vector<int> get_factor(int n,int m) {
+    vector<int> v;
+    vector<int> v1=map2[n];
+    for(int i=0;i<v1.size();i++) {
+        if(v1[i]<=m) {
+            v.push_back(v1[i]);
+        }
     }
     return v;
 }
+
 void solve() {
     int n,m;
     cin>>n>>m;
@@ -56,21 +66,33 @@ void solve() {
                 int diff1=a[end-1]-a[st];
                 int diff2=a[end]-a[st+1];
                 if(diff1<diff2) {
+                    for(int i=0;i<v[end].size();i++) {
+                        map1[v[end][i]]--;
+                    }
                     end--;
                 }
                 else {
+                    for(int i=0;i<v[st].size();i++) {
+                        map1[v[st][i]]--;
+                    }
                     st++;
                 }
             }
             else if(flag1) {
+                for(int i=0;i<v[st].size();i++) {
+                    map1[v[st][i]]--;
+                }
                 st++;
             }
             else if(flag2) {
+                for(int i=0;i<v[end].size();i++) {
+                    map1[v[end][i]]--;
+                }
                 end--;
             }
             else {
                 res=a[end]-a[st];
-                break;
+                break; 
             }
         }
         cout<<res<<endl;
@@ -89,6 +111,7 @@ int main() {
     cin.tie(0);
     int t;
     cin>>t;
+    get_all_factor();
     while(t--) {
         solve();
     }
