@@ -1,0 +1,5 @@
+size of array is : 6
+size of array is : 6
+size of array is : 6
+size of array is : 6
+size of array is : 7

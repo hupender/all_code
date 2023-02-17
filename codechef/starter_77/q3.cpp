@@ -5,7 +5,7 @@ using namespace std;
 void solve() {
     int n,k;
     cin>>n>>k;
-    int a[n];
+    ll a[n];
     for(int i=0;i<n;i++) {
         cin>>a[i];
     }
@@ -13,7 +13,7 @@ void solve() {
         int flag=1;
         for(int i=0;i<n/2;i++) {
             if(a[i]!=a[n-1-i]) {
-                flag=0;
+                flag=0; 
             }
         }
         if(flag) {
@@ -26,16 +26,24 @@ void solve() {
     else {
         if(n%2==0 && k%2==0) {
             // check palindrome
-            int flag=1;
-            ll total_increment=0;
-            for(int i=0;i<n/2;i++) {
-                if(a[i]!=a[n-1-i]) {
-                    total_increment+=(abs(a[i]-a[n-1-i])); 
-                    total_increment%=k;  
-                    flag=0;
+            int x=(k-2)/2;
+            ll add=0;
+            int ind;
+            for(int i=0;i<x;i++) {
+                add+=abs(add+a[i]-a[n-1-i]);
+                a[k-1-i]+=add;
+                ind=k-1-i;
+            }
+            if(x!=0) {
+                for(int i=x;i<ind;i++) {
+                    a[i]+=add;
                 }
             }
-            if(flag || total_increment==0) {
+            ll sum=0;
+            for(int i=x;i<n/2;i++) {
+                sum+=abs(a[i]-a[n-1-i]);
+            }
+            if(sum%2==0) {
                 cout<<"YES"<<endl;
             }
             else {

@@ -1,0 +1,11 @@
+5
+3
+abc
+4
+abcd
+5
+abcde
+6
+abcdef
+7
+abcdefg
