@@ -1,0 +1,13 @@
+a
+aba
+bab
+bca
+abba
+abbba
+ababa
+bbab
+bbabb
+bbcca
+agea
+acffba
+Executed In : 0.426 ms

@@ -2,19 +2,25 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
+int mod=1e9+7;
 void solve() {
-    int n;
-    cin>>n;
-    for(int i=2;i<=n;i++) {
-        cout<<i<<" ";
+    int k;
+    cin>>k;
+    int y=1;
+    while(k--) {
+        y*=2;
+        y%=mod;
     }
-    cout<<"1"<<endl;
+    int x=y-1;
+    x%=mod;
+    y%=mod;
+    cout<<x<<" "<<y<<endl;
 }
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
-        //freopen("inp.txt","r",stdin);
-        //freopen("out.txt","w",stdout);
+        freopen("inp.txt","r",stdin);
+        freopen("out.txt","w",stdout);
     #endif
     ios::sync_with_stdio(false);
     cin.tie(0);

@@ -5,16 +5,25 @@ using namespace std;
 void solve() {
     int n;
     cin>>n;
-    for(int i=2;i<=n;i++) {
-        cout<<i<<" ";
+    vector<int> v;
+    for(int i=0;i<n;i++) {
+        int k;
+        cin>>k;
+        v.push_back(k);
     }
-    cout<<"1"<<endl;
+    int res1=v[0],res2=v[0];
+    for(int i=1;i<n;i++) {
+        res1&=v[i];
+        res2|=v[i];
+    }
+    int res=res1^res2;
+    cout<<res<<endl;
 }
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
-        //freopen("inp.txt","r",stdin);
-        //freopen("out.txt","w",stdout);
+        freopen("inp.txt","r",stdin);
+        freopen("out.txt","w",stdout);
     #endif
     ios::sync_with_stdio(false);
     cin.tie(0);

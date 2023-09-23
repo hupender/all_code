@@ -1,6 +1,6 @@
 import xmlrpc.client
  
-server = xmlrpc.client.ServerProxy('http://localhost:8000')
+server = xmlrpc.client.ServerProxy('http://localhost:8002')
 
 while True:
     message = input('> ')

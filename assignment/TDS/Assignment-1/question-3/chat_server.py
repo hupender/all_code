@@ -14,7 +14,7 @@ class ChatServer:
         return self.messages
 
 
-server = xmlrpc.server.SimpleXMLRPCServer(('localhost', 8000))
+server = xmlrpc.server.SimpleXMLRPCServer(('localhost', 8002))
 print("----Starting the Server----")
 server.register_instance(ChatServer())
 server.serve_forever()

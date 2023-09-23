@@ -2,19 +2,38 @@
 using namespace std;
 #define endl "\n"
 #define ll long long int
+int gcd(int a,int b) {
+    if(b==0) {
+        return a;
+    }
+    return gcd(b,a%b);
+}
 void solve() {
     int n;
     cin>>n;
-    for(int i=2;i<=n;i++) {
-        cout<<i<<" ";
+    int a[n];
+    for(int i=0;i<n;i++) {
+        cin>>a[i];
     }
-    cout<<"1"<<endl;
+    int min_gcd=INT_MAX;
+    for(int i=0;i<n-1;i++) {
+        for(int j=i+1;j<n;j++) {
+            int g=gcd(a[i],a[j]);
+            min_gcd=min(min_gcd,g);
+        }
+    }
+    if(min_gcd<=2) {
+        cout<<"YES"<<endl;
+    }
+    else {
+        cout<<"NO"<<endl;
+    }
 }
 int main() {
     #ifndef ONLINE_JUDGE
         clock_t clock_begin = clock();
-        //freopen("inp.txt","r",stdin);
-        //freopen("out.txt","w",stdout);
+        freopen("inp.txt","r",stdin);
+        freopen("out.txt","w",stdout);
     #endif
     ios::sync_with_stdio(false);
     cin.tie(0);
